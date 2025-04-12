@@ -11,7 +11,7 @@ class EuclideanDistTracker:
             x, y, w, h = rect        
             cx = (x + x + w) // 2        
             cy = (y + y + h) // 2        
-            #print(cx, cy)
+            print(cx, cy)
             same_object_detected = False            
             for id, pt in self.center_points.items():                
                 dist = math.hypot(cx - pt[0], cy - pt[1])                
@@ -19,5 +19,11 @@ class EuclideanDistTracker:
                      self.center_points[id] = (cx, cy)                    
                      objects_bbs_ids.append([x, y, w, h, id])                    
                      same_object_detected = True                    
-                     break        
+                     break    
+            if same_object_detected == False:                
+                self.center_points[self.id_count] = (cx, cy)                
+                objects_bbs_ids.append([x, y, w, h, self.id_count])                
+                self.id_count += 1   
+                print(self.center_points)
+            
         return objects_bbs_ids

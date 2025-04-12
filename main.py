@@ -20,9 +20,14 @@ while True:
             #cv2.drawContours(frame, [cnt], -1,(0,255,0), 2 )
             x, y, w,h = cv2.boundingRect(cnt) 
             detections.append([x,y,w,h])   
-            cv2.rectangle(roi, (x,y), (x+w, y+h), (0,255,0), 2)
+            #cv2.rectangle(roi, (x,y), (x+w, y+h), (0,255,0), 2)
     #print(detections)
     boxes_ids = tracker.update(detections)
+    for boxes_id in boxes_ids:    
+        x,y,w,h,id = boxes_id    
+        cv2.putText(roi, str(id), (x,y -15),  
+            cv2.FONT_HERSHEY_COMPLEX, 1, (255,0,0), 2 )    
+        cv2.rectangle(roi, (x,y), (x+w, y+h), (0,255,0), 2)
     cv2.imshow("Frame", roi)
     cv2.imshow("mask", mask) 
     key = cv2.waitKey(30)
