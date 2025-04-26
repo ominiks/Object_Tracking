@@ -8,7 +8,7 @@ object_detector = cv2.createBackgroundSubtractorMOG2( history=100, varThreshold=
 while True: 
 
     ret, frame = cap.read()
-    roi = frame[340:720, 500:800]   
+    roi = frame[540:720, 500:900]   
     mask = object_detector.apply(roi)
     #mask = object_detector.apply(frame)    
     _, mask = cv2.threshold(mask, 254, 255, cv2.THRESH_BINARY)
